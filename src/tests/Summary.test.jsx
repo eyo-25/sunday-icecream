@@ -50,7 +50,7 @@ test("popover responds to hover", async () => {
   const termsAndConditions = screen.getByText(/terms and conditions/i);
 
   // 팝오버는 시작하면 안보이는 상태
-  const nullPopover = screen.queryAllByText(
+  const nullPopover = screen.queryByText(
     /No ice cream will actually be delivered/i
   );
   expect(nullPopover).not.toBeInTheDocument();
