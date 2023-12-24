@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 
 import { beforeAll, afterEach, afterAll } from "vitest";
-import { server } from "./src/mocks/server";
+import { server } from "./mocks/server.js";
 
 // 모든 테스트 전에 api설치한다
 beforeAll(() => server.listen());

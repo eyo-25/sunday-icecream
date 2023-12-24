@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
-import SummaryForm from "../pages/summary/SummaryForm";
+import SummaryForm from "../SummaryForm";
 import userEvent from "@testing-library/user-event";
 
 test("시작 상태 테스트", () => {
