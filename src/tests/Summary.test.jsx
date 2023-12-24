@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { expect, test } from "vitest";
 import SummaryForm from "../pages/summary/SummaryForm";
 import userEvent from "@testing-library/user-event";
