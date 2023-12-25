@@ -6,7 +6,7 @@ function ToppingOption({ name, imagePath }) {
       <img
         style={{ width: "75%" }}
         src={`http://localhost:3030/${imagePath}`}
-        alt={`${name} toppings`}
+        alt={`${name} topping`}
       />
     </Col>
   );
