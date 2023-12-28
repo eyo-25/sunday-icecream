@@ -4,10 +4,14 @@ import ScoopOption from "./ScoopOption";
 import ToppingOption from "./ToppingOption";
 import { Row } from "react-bootstrap";
 import AlertBanner from "../common/AlertBanner";
+import { priceItem } from "../../constants";
+import { formatCurrency } from "../../utilites";
+import { useOrderDetails } from "../../contexts/OrderDetails";
 
 function Options({ optionType }) {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(false);
+  const { totals } = useOrderDetails();
 
   // optionType ise "scoops" or "topping"
   useEffect(() => {
@@ -23,6 +27,8 @@ function Options({ optionType }) {
 
   // 널과 토핑옵션이 있을때 대체
   const ItemComponent = optionType === "scoops" ? ScoopOption : ToppingOption;
+  const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
+
   const optionItems = items.map((item) => {
     return (
       <ItemComponent
@@ -33,7 +39,18 @@ function Options({ optionType }) {
     );
   });
 
-  return <Row>{optionItems}</Row>;
+  return (
+    <>
+      <Row>
+        <h1>{title}</h1>
+        <p>{formatCurrency(priceItem[optionType])}</p>
+        <p>
+          {title} total: {formatCurrency(totals[optionType])}
+        </p>
+        {optionItems}
+      </Row>
+    </>
+  );
 }
 
 export default Options;
