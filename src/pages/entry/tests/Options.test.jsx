@@ -1,4 +1,9 @@
-import { render, screen } from "../../../test-utils/testing-library-utils";
+import userEvent from "@testing-library/user-event";
+import {
+  getByText,
+  render,
+  screen,
+} from "../../../test-utils/testing-library-utils";
 import Options from "../Options";
 import { expect } from "vitest";
 
@@ -28,4 +33,26 @@ test("서버에서 가져온 각각의 토핑옵션이 이미지로 표현되는
     "M&Ms topping",
     "Hot fudge topping",
   ]);
+});
+
+test("무효한 스쿱에 대해서는 스쿱 소계에 업데이트 없음", async () => {
+  const user = userEvent.setup();
+  render(<Options optionType="scoops" />);
+
+  const vanillaInput = await screen.findByRole("spinbutton", {
+    name: /vanilla/i,
+  });
+  const scoopsSubTotal = screen.getByText("scoops total: $", { exact: false });
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "2.5");
+  expect(scoopsSubTotal).toHaveTextContent("$0.00");
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "100");
+  expect(scoopsSubTotal).toHaveTextContent("$0.00");
+
+  await user.clear(vanillaInput);
+  await user.type(vanillaInput, "-1");
+  expect(scoopsSubTotal).toHaveTextContent("$0.00");
 });

@@ -16,7 +16,7 @@ test("시작 상태 테스트", () => {
   expect(checkbox).not.toBeChecked();
 
   // 버튼 비활성화 테스트
-  const confirmButton = screen.getByRole("button", { name: "Confirm order" });
+  const confirmButton = screen.getByRole("button", { name: /confirm order/i });
   expect(confirmButton).toBeDisabled();
 });
 
@@ -30,7 +30,7 @@ test("클릭했을때 버튼 비활성화 테스트", async () => {
   const checkbox = screen.getByRole("checkbox", {
     name: /terms and conditions/i,
   });
-  const confirmButton = screen.getByRole("button", { name: "Confirm order" });
+  const confirmButton = screen.getByRole("button", { name: /confirm order/i });
 
   // 클릭 후 체크 되었는지와 버튼 사용 가능한지 테스트
   await user.click(checkbox);
@@ -47,7 +47,7 @@ test("popover responds to hover", async () => {
   const user = userEvent.setup();
   render(<SummaryForm />);
 
-  const termsAndConditions = screen.getByText(/terms and conditions/i);
+  // const termsAndConditions = screen.getByText(/terms and conditions/i);
 
   // 팝오버는 시작하면 안보이는 상태
   const nullPopover = screen.queryByText(
